@@ -25,7 +25,6 @@ func Connect() (*sql.DB, error) {
 		dbName,
 		sslMode,
 	)
-
 	db, err := sql.Open("pgx", dsn)
 	if err != nil {
 		return nil, err

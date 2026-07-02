@@ -41,7 +41,7 @@ func (h *URLHandler) CreateURL(w http.ResponseWriter, r *http.Request) {
 
 	url, err := h.service.Create(req.URL)
 	if err != nil {
-		http.Error(w, "Failed to create short URL", http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
