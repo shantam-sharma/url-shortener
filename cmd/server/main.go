@@ -6,6 +6,9 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/shantam-sharma/url-shortner/internal/database"
+	"github.com/shantam-sharma/url-shortner/internal/handlers"
+	"github.com/shantam-sharma/url-shortner/internal/repository"
+	"github.com/shantam-sharma/url-shortner/internal/service"
 )
 
 func main() {
@@ -22,6 +25,14 @@ func main() {
 	defer db.Close()
 
 	log.Println("Connected to PostgreSQL")
+
+	// Initialize application layers
+	urlRepository := repository.NewURLRepository(db)
+	urlService := service.NewURLService(urlRepository)
+	urlHandler := handlers.NewURLHandler(urlService)
+
+	// Register routes
+	http.HandleFunc("/api/v1/urls", urlHandler.CreateURL)
 
 	// Start HTTP server
 	log.Println("Server running on :8080")
