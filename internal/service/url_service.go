@@ -2,6 +2,7 @@ package service
 
 import (
 	"crypto/rand"
+	"errors"
 	"math/big"
 
 	"github.com/shantam-sharma/url-shortner/internal/models"
@@ -39,15 +40,31 @@ func generateShortCode(length int) string {
 	return string(shortCode)
 }
 
-func (s *URLService) Create(originalURL string) (*models.URL, error) {
-	url := &models.URL{
-		OriginalURL: originalURL,
-		ShortCode:   generateShortCode(6),
+func (s *URLService) Create(originalURL, alias string) (*models.URL, error) {
+
+	var shortCode string
+
+	if alias != "" {
+		exists, err := s.repo.AliasExists(alias)
+		if err != nil {
+			return nil, err
+		}
+
+		if exists {
+			return nil, errors.New("alias already exists")
+		}
+
+		shortCode = alias
+	} else {
+		shortCode = generateShortCode(6)
 	}
 
-	err := s.repo.Create(url)
+	url := &models.URL{
+		OriginalURL: originalURL,
+		ShortCode:   shortCode,
+	}
 
-	if err != nil {
+	if err := s.repo.Create(url); err != nil {
 		return nil, err
 	}
 

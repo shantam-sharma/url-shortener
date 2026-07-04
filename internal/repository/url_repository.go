@@ -69,3 +69,22 @@ func (r *URLRepository) IncrementClickCount(code string) error {
 
 	return nil
 }
+
+func (r *URLRepository) AliasExists(alias string) (bool, error) {
+	var exists bool
+
+	query := `
+		SELECT EXISTS(
+			SELECT 1
+			FROM urls
+			WHERE short_code = $1
+		)
+	`
+
+	err := r.db.QueryRow(query, alias).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+
+	return exists, nil
+}

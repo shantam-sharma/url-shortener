@@ -40,9 +40,14 @@ func (h *URLHandler) CreateURL(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url, err := h.service.Create(req.URL)
+	url, err := h.service.Create(req.URL, req.Alias)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		if err.Error() == "alias already exists" {
+			http.Error(w, err.Error(), http.StatusConflict)
+			return
+		}
+
+		http.Error(w, "Failed to create short URL", http.StatusInternalServerError)
 		return
 	}
 
