@@ -54,3 +54,25 @@ func (h *URLHandler) CreateURL(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(response)
 }
+
+func (h *URLHandler) RedirectURL(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	shortCode := r.URL.Path[1:]
+
+	url, err := h.service.Resolve(shortCode)
+	if err != nil {
+		http.Error(w, "URL not found", http.StatusNotFound)
+		return
+	}
+
+	http.Redirect(
+		w,
+		r,
+		url.OriginalURL,
+		http.StatusFound,
+	)
+}
