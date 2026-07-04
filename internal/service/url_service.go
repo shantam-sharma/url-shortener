@@ -53,3 +53,17 @@ func (s *URLService) Create(originalURL string) (*models.URL, error) {
 
 	return url, nil
 }
+
+func (s *URLService) Resolve(shortCode string) (*models.URL, error) {
+	url, err := s.repo.GetByShortCode(shortCode)
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.repo.IncrementClickCount(shortCode)
+	if err != nil {
+		return nil, err
+	}
+
+	return url, nil
+}
