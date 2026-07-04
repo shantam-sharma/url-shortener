@@ -61,6 +61,11 @@ func (h *URLHandler) RedirectURL(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if r.URL.Path == "/" {
+		http.NotFound(w, r)
+		return
+	}
+
 	shortCode := r.URL.Path[1:]
 
 	url, err := h.service.Resolve(shortCode)
@@ -69,10 +74,5 @@ func (h *URLHandler) RedirectURL(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(
-		w,
-		r,
-		url.OriginalURL,
-		http.StatusFound,
-	)
+	http.Redirect(w, r, url.OriginalURL, http.StatusFound)
 }
