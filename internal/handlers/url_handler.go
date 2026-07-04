@@ -12,7 +12,8 @@ type URLHandler struct {
 }
 
 type CreateURLRequest struct {
-	URL string `json:"url"`
+	URL   string `json:"url"`
+	Alias string `json:"alias"`
 }
 
 type CreateURLResponse struct {
