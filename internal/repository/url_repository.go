@@ -30,3 +30,42 @@ func (r *URLRepository) Create(url *models.URL) error {
 
 	return nil
 }
+
+func (r *URLRepository) GetByShortCode(code string) (*models.URL, error) {
+	url := &models.URL{}
+
+	query := `
+		SELECT id, original_url, short_code, click_count, created_at
+		FROM urls
+		WHERE short_code = $1
+	`
+
+	err := r.db.QueryRow(query, code).Scan(
+		&url.ID,
+		&url.OriginalURL,
+		&url.ShortCode,
+		&url.ClickCount,
+		&url.CreatedAt,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return url, nil
+}
+
+func (r *URLRepository) IncrementClickCount(code string) error {
+	query := `
+		UPDATE urls
+		SET click_count = click_count + 1
+		WHERE short_code = $1
+	`
+
+	_, err := r.db.Exec(query, code)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
