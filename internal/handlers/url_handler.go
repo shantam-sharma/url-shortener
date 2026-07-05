@@ -17,7 +17,9 @@ type CreateURLRequest struct {
 }
 
 type CreateURLResponse struct {
-	ShortCode string `json:"short_code"`
+	OriginalURL string `json:"original_url"`
+	ShortCode   string `json:"short_code"`
+	ShortURL    string `json:"short_url"`
 }
 
 func NewURLHandler(service *service.URLService) *URLHandler {
@@ -52,7 +54,9 @@ func (h *URLHandler) CreateURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := CreateURLResponse{
-		ShortCode: url.ShortCode,
+		OriginalURL: url.OriginalURL,
+		ShortCode:   url.ShortCode,
+		ShortURL:    "http://127.0.0.1:8080/" + url.ShortCode,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
