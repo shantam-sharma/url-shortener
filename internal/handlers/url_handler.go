@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/shantam-sharma/url-shortner/internal/service"
@@ -44,12 +45,20 @@ func (h *URLHandler) CreateURL(w http.ResponseWriter, r *http.Request) {
 
 	url, err := h.service.Create(req.URL, req.Alias)
 	if err != nil {
-		if err.Error() == "alias already exists" {
+		switch {
+		case errors.Is(err, service.ErrInvalidURL):
+			http.Error(w, err.Error(), http.StatusBadRequest)
+
+		case errors.Is(err, service.ErrInvalidAlias):
+			http.Error(w, err.Error(), http.StatusBadRequest)
+
+		case errors.Is(err, service.ErrAliasAlreadyExists):
 			http.Error(w, err.Error(), http.StatusConflict)
-			return
+
+		default:
+			http.Error(w, "Failed to create short URL", http.StatusInternalServerError)
 		}
 
-		http.Error(w, "Failed to create short URL", http.StatusInternalServerError)
 		return
 	}
 
