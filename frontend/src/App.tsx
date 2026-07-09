@@ -13,13 +13,27 @@ export default function App() {
 
     return (
 
-        <main className="min-h-screen bg-slate-950 px-6 py-12">
+        <main className="relative min-h-screen overflow-hidden bg-slate-950 px-6 py-12">
 
-            <div className="mx-auto max-w-2xl">
+            {/* Background Glow */}
+            <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-violet-500/10 blur-3xl" />
+
+            <div className="relative mx-auto max-w-2xl">
 
                 <Header />
 
-                <div className="rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl">
+                <div
+                    className="
+                        rounded-3xl
+                        border
+                        border-slate-700/60
+                        bg-slate-900/80
+                        p-8
+                        shadow-2xl
+                        backdrop-blur-sm
+                    "
+                >
 
                     <URLForm
                         onSuccess={setResult}

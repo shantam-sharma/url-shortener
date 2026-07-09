@@ -7,8 +7,29 @@ body,
     min-height: 100%;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Inter, sans-serif;
-    background: #020617;
+    color: white;
+
+    background:
+        radial-gradient(circle at top left,
+            rgba(59,130,246,.18),
+            transparent 35%),
+
+        radial-gradient(circle at bottom right,
+            rgba(139,92,246,.18),
+            transparent 40%),
+
+        #020617;
+
+    background-attachment: fixed;
+}
+
+::selection {
+    background: rgb(59 130 246 / .35);
 }

@@ -19,42 +19,51 @@ export default function ResultCard({ result }: ResultCardProps) {
         setTimeout(() => {
             setCopied(false);
         }, 2000);
+
     }
 
     return (
 
-        <div className="mt-8 rounded-2xl border border-slate-700 bg-slate-900 p-6">
+        <div className="mt-8 rounded-2xl border border-slate-700/70 bg-slate-900/80 p-6 shadow-lg backdrop-blur-sm transition-all">
 
-            <h2 className="mb-4 text-lg font-semibold text-white">
-                ✅ Short URL Created
+            <h2 className="mb-5 text-xl font-semibold text-green-400">
+                ✓ Short URL Created
             </h2>
 
             <div className="space-y-2">
 
-                <p className="text-sm text-slate-400">
-                    Original URL
+                <p className="text-sm font-medium text-slate-400">
+                    Short URL
                 </p>
 
-                <p className="break-all text-white">
-                    {result.original_url}
-                </p>
+                <div className="flex gap-3">
+
+                    <input
+                        readOnly
+                        value={result.short_url}
+                        className="flex-1 rounded-xl border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none"
+                    />
+
+                    <button
+                        onClick={handleCopy}
+                        className="rounded-xl bg-green-600 px-5 py-3 font-semibold text-white transition-all duration-200 hover:bg-green-700 active:scale-95"
+                    >
+                        {copied ? "✓ Copied" : "Copy"}
+                    </button>
+
+                </div>
 
             </div>
 
-            <div className="mt-6 flex gap-3">
+            <div className="mt-6 border-t border-slate-700 pt-6">
 
-                <input
-                    readOnly
-                    value={result.short_url}
-                    className="flex-1 rounded-xl border border-slate-700 bg-slate-800 px-4 py-3 text-white"
-                />
+                <p className="mb-2 text-sm font-medium text-slate-400">
+                    Original URL
+                </p>
 
-                <button
-                    onClick={handleCopy}
-                    className="rounded-xl bg-green-600 px-5 py-3 font-semibold text-white transition hover:bg-green-700"
-                >
-                    {copied ? "Copied!" : "Copy"}
-                </button>
+                <p className="break-all rounded-xl bg-slate-800 px-4 py-3 text-slate-200">
+                    {result.original_url}
+                </p>
 
             </div>
 
