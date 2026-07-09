@@ -16,7 +16,7 @@ export default function Footer() {
             </span>
 
             <a
-                href="https://github.com/shantam-sharma/url-shortner"
+                href="https://github.com/shantam-sharma/url-shortener"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-slate-700 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-slate-600"
