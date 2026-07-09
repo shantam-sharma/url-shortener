@@ -13,13 +13,14 @@ export default function URLForm({ onSuccess }: URLFormProps) {
     const [alias, setAlias] = useState("");
 
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const handleSubmit = async (
         e: React.FormEvent<HTMLFormElement>
     ) => {
 
         e.preventDefault();
-
+        setError("");
         setLoading(true);
 
         try {
@@ -29,6 +30,8 @@ export default function URLForm({ onSuccess }: URLFormProps) {
                 alias,
             });
 
+            setError("");
+
             onSuccess(response);
 
             setURL("");
@@ -37,7 +40,9 @@ export default function URLForm({ onSuccess }: URLFormProps) {
         } catch (error) {
 
             if (error instanceof Error) {
-                alert(error.message);
+                setError(error.message);
+            } else {
+                setError("Something went wrong.");
             }
 
         } finally {
@@ -71,6 +76,12 @@ export default function URLForm({ onSuccess }: URLFormProps) {
                 onChange={(e) => setAlias(e.target.value)}
                 className="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-blue-500"
             />
+
+            {error && (
+                <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                    {error}
+                </div>
+            )}
 
             <button
                 type="submit"

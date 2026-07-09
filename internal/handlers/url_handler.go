@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"os"
 
 	"github.com/shantam-sharma/url-shortner/internal/service"
 )
@@ -62,10 +63,16 @@ func (h *URLHandler) CreateURL(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	baseURL := os.Getenv("BASE_URL")
+
+	if baseURL == "" {
+		baseURL = "http://127.0.0.1:8080"
+	}
+
 	response := CreateURLResponse{
 		OriginalURL: url.OriginalURL,
 		ShortCode:   url.ShortCode,
-		ShortURL:    "http://127.0.0.1:8080/" + url.ShortCode,
+		ShortURL:    baseURL + "/" + url.ShortCode,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
