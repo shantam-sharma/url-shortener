@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/shantam-sharma/url-shortner/internal/database"
@@ -37,11 +38,16 @@ func main() {
 	http.HandleFunc("/", urlHandler.RedirectURL)
 	// Start HTTP server
 	// Start HTTP server
-	log.Println("Server running on :8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
 	handler := middleware.CORS(http.DefaultServeMux)
 
-	if err := http.ListenAndServe(":8080", handler); err != nil {
+	log.Printf("Server running on :%s", port)
+
+	if err := http.ListenAndServe(":"+port, handler); err != nil {
 		log.Fatal(err)
 	}
 }
