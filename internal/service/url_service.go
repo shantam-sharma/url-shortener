@@ -4,8 +4,8 @@ import (
 	"crypto/rand"
 	"math/big"
 
-	"github.com/shantam-sharma/url-shortner/internal/models"
-	"github.com/shantam-sharma/url-shortner/internal/repository"
+	"github.com/shantam-sharma/url-shortener/internal/models"
+	"github.com/shantam-sharma/url-shortener/internal/repository"
 )
 
 type URLService struct {

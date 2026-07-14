@@ -1,4 +1,4 @@
-module github.com/shantam-sharma/url-shortner
+module github.com/shantam-sharma/url-shortener
 
 go 1.25.0
 

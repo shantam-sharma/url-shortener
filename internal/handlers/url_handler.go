@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/shantam-sharma/url-shortner/internal/service"
+	"github.com/shantam-sharma/url-shortener/internal/service"
 )
 
 type URLHandler struct {

@@ -6,11 +6,11 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/shantam-sharma/url-shortner/internal/database"
-	"github.com/shantam-sharma/url-shortner/internal/handlers"
-	"github.com/shantam-sharma/url-shortner/internal/middleware"
-	"github.com/shantam-sharma/url-shortner/internal/repository"
-	"github.com/shantam-sharma/url-shortner/internal/service"
+	"github.com/shantam-sharma/url-shortener/internal/database"
+	"github.com/shantam-sharma/url-shortener/internal/handlers"
+	"github.com/shantam-sharma/url-shortener/internal/middleware"
+	"github.com/shantam-sharma/url-shortener/internal/repository"
+	"github.com/shantam-sharma/url-shortener/internal/service"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package repository
 import (
 	"database/sql"
 
-	"github.com/shantam-sharma/url-shortner/internal/models"
+	"github.com/shantam-sharma/url-shortener/internal/models"
 )
 
 type URLRepository struct {
