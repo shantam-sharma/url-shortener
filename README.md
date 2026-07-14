@@ -1,10 +1,14 @@
 # 🚀 Go URL Shortener
 
+Go • React • PostgreSQL • Docker • TypeScript • Render • Vercel
+
 A production-ready URL shortening service built with **Go**, **PostgreSQL**, **React**, and **Docker**. Users can generate unique short links, create custom aliases, and instantly redirect to the original URL through a clean REST API.
 
 **🔗 Live Demo:** https://url-shortner-pink-phi.vercel.app
 
 **⚙️ Backend API:** https://url-shortener-api-udkx.onrender.com
+
+The application follows a layered architecture (Handler → Service → Repository) with environment-based configuration, PostgreSQL persistence, and Dockerized local development.
 
 ---
 
@@ -40,7 +44,6 @@ A production-ready URL shortening service built with **Go**, **PostgreSQL**, **R
 ## Backend
 
 - Go
-- PostgreSQL
 - pgx
 - Standard net/http package
 - Repository Pattern
@@ -53,20 +56,17 @@ A production-ready URL shortening service built with **Go**, **PostgreSQL**, **R
 - Vite
 - Tailwind CSS
 
-## Database
+## Infrastructure
 
+- Docker
+- Docker Compose
 - PostgreSQL
-- Neon
 
 ## Deployment
 
 - Render (Backend)
 - Vercel (Frontend)
-
-## Development
-
-- Docker
-- Docker Compose
+- Neon (PostgreSQL)
 
 ---
 
@@ -103,7 +103,7 @@ Database
 # 📂 Project Structure
 
 ```
-url-shortner
+url-shortener
 │
 ├── cmd/
 │   └── server/
@@ -135,60 +135,50 @@ url-shortner
 ## Clone the repository
 
 ```bash
-git clone https://github.com/shantam-sharma/url-shortner.git
+git clone https://github.com/shantam-sharma/url-shortener.git
 
-cd url-shortner
+cd url-shortener
 ```
 
 ---
 
 ## Backend
 
-Create a `.env` file.
+Copy the example environment file and update values if needed.
 
-```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=password
-DB_NAME=url_shortener
-DB_SSLMODE=disable
-
-BASE_URL=http://localhost:8080
+```bash
+cp .env.example .env
 ```
 
-Start Docker containers.
+Start the backend and PostgreSQL.
 
 ```bash
 docker compose up --build
 ```
 
-Backend will run on
+The API will be available at:
 
 ```
 http://localhost:8080
 ```
 
+Note: Commit example env files (`.env.example`, `.env.docker.example`) — do not commit real `.env` files.
+
 ---
 
 ## Frontend
 
-Move into the frontend directory.
+Move into the frontend directory and install dependencies.
 
 ```bash
 cd frontend
-```
-
-Install dependencies.
-
-```bash
 npm install
 ```
 
-Create a `.env` file.
+Create the frontend env file from the example if needed.
 
-```env
-VITE_API_URL=http://localhost:8080
+```bash
+cp .env.example .env
 ```
 
 Run the development server.
@@ -216,6 +206,8 @@ http://localhost:5173
 ---
 
 # 📡 API
+
+Base URL (Production): https://url-shortener-api-udkx.onrender.com
 
 ## Create Short URL
 
@@ -279,15 +271,15 @@ https://google.com
 
 # 🔮 Future Improvements
 
-- User authentication (JWT)
-- URL expiration
-- QR code generation
-- Analytics dashboard
-- Rate limiting
-- Redis caching
-- Custom domains
-- Admin dashboard
-- Unit & integration tests
+- JWT Authentication
+- URL Expiration
+- Rate Limiting
+- Redis Caching
+- Analytics Dashboard
+- QR Code Generation
+- Custom Domains
+- Admin Dashboard
+- Unit & Integration Tests
 
 ---
 
@@ -297,7 +289,7 @@ https://google.com
 
 GitHub: https://github.com/shantam-sharma
 
-LinkedIn: *(Add your LinkedIn URL)*
+LinkedIn: https://www.linkedin.com/in/shantam-sharma (update with your LinkedIn URL)
 
 ---
 
