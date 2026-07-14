@@ -35,6 +35,11 @@ func main() {
 
 	// Register routes
 	http.HandleFunc("/api/v1/urls", urlHandler.CreateURL)
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{"status":"ok"}`))
+	})
 	http.HandleFunc("/", urlHandler.RedirectURL)
 	// Start HTTP server
 	// Start HTTP server

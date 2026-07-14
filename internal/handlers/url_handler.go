@@ -64,9 +64,8 @@ func (h *URLHandler) CreateURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	baseURL := os.Getenv("BASE_URL")
-
 	if baseURL == "" {
-		baseURL = "http://127.0.0.1:8080"
+		baseURL = "http://localhost:8080"
 	}
 
 	response := CreateURLResponse{
